@@ -324,7 +324,7 @@ const $item: ThemedStyle<ViewStyle> = ({ colors, spacing }) => ({
   padding: spacing.md,
   marginTop: spacing.md,
   minHeight: 120,
-  backgroundColor: colors.palette.neutral100,
+  backgroundColor: colors.palette.angry500,
 })
 
 const $itemThumbnail: ThemedStyle<ImageStyle> = ({ spacing }) => ({
