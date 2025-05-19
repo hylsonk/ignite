@@ -38,6 +38,7 @@
     "plugins": [
       "expo-localization",
       "expo-font",
+      "@react-native-voice/voice",
       [
         "expo-splash-screen",
         {
