@@ -3,11 +3,11 @@ import * as Speech from "expo-speech"
 import { useSpeak } from "../../hooks/useSpeak"
 
 export default function TTSHooked(props: any) {
-  const { state, speak } = useSpeak(props)
+  const { speakState, speak } = useSpeak(props)
 
   return (
     <View style={styles.container}>
-      <Button title={state.isSpeaking ? "Speaking..." : "Press to hear some words"} onPress={() => {speak()}} disabled={state.isSpeaking}/>
+      <Button title={speakState.isSpeaking ? "Speaking..." : "Press to hear some words"} onPress={() => {speak()}} disabled={speakState.isSpeaking}/>
     </View>
   )
 }

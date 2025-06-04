@@ -2,19 +2,19 @@ import { useState, useEffect } from "react"
 import Voice, { SpeechErrorEvent, SpeechResultsEvent } from "@react-native-voice/voice"
 import * as Speech from "expo-speech"
 
-interface IState {
+interface ISpeak {
     error: string
     isSpeaking: any
 }
 
 export const useSpeak = (props: any) => {
-    const [state, setState] = useState<IState>({
+    const [speakState, setSpeakState] = useState<ISpeak>({
         error: "",
         isSpeaking: false,
     })
 
     const speak = () => {
-        Speech.speak(props.thingToSay, { language: "pt-BR" })
+        Speech.speak(props.thingToSay, { language: props.language })
     }
 
     async function checkIfSpeaking() {
@@ -27,7 +27,7 @@ export const useSpeak = (props: any) => {
             (async () => {
                 try {
                     const speaking = await checkIfSpeaking();
-                    setState((prevState) => ({
+                    setSpeakState((prevState) => ({
                         ...prevState,
                         isSpeaking: speaking,
                     }))
@@ -41,8 +41,8 @@ export const useSpeak = (props: any) => {
     }, []);
 
     return {
-        state,
-        setState,
+        speakState,
+        setSpeakState,
         speak,
     }
 }
