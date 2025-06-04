@@ -10,6 +10,7 @@ import YTVoice from "@/components/ChatComponent/YTVoice"
 import PressRecognitionHooked from "@/components/ChatComponent/PressRecognitionHooked"
 import VoiceTest from "@/components/ChatComponent/InputVoice"
 import TTS from "@/components/ChatComponent/TTS"
+import TTSHooked from "@/components/ChatComponent/TTSHooked"
 
 interface ChatScreenProps extends AppStackScreenProps<"Chat"> {}
 export const ChatScreen: FC<ChatScreenProps> = observer(function ChatScreen(_props) {
@@ -28,7 +29,8 @@ export const ChatScreen: FC<ChatScreenProps> = observer(function ChatScreen(_pro
   return (
     <Screen preset="fixed" contentContainerStyle={$styles.flex1}>
       <Text>Chat</Text>
-      <TTS />
+      <TTSHooked thingToSay={"Testando"}></TTSHooked>
+      <PressRecognitionHooked></PressRecognitionHooked>
     </Screen>
   )
 })
