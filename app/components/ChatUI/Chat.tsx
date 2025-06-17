@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { GiftedChat, Bubble, InputToolbar, Send } from "react-native-gifted-chat";
 
@@ -25,12 +25,18 @@ useEffect(() => {
 }, []);
 
 const renderSend = (props) => {
+  
   return (
-    <Send {...props}>
-      <View style={{ marginBottom: 11 }}>
-        <Icon name="send" size={24} color="#0075FD" />
-      </View>
-    </Send>
+    <View style={{ flexDirection: 'row', alignItems: 'center', height: 40, marginRight: 6, gap: 4}}>
+      <Pressable>
+        <Icon name="mic" size={24} color="#0075FD"/>
+      </Pressable>
+      <Send {...props} containerStyle={{ height: 40}}>
+        <View style={{ marginBottom: 8}}>
+          <Icon name="send" size={24} color="#0075FD"/>
+        </View>
+      </Send>
+    </View>
   );
 };
 
