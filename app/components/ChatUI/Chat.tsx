@@ -1,80 +1,69 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { GiftedChat, Bubble, InputToolbar, Send } from "react-native-gifted-chat";
+import useChatStore from "@/storage/useContainerChatStore";
 
 const { height } = Dimensions.get("window");
 
 const Chat = ({ user }) => {
 
-    const [messages, setMessages] = useState([]);
+  const addChatMessage = useChatStore((state) => state.addChatMessage);
+  const chatMessages = useChatStore((state) => state.chatMessages);
+  const getMessageFromAI = useChatStore((state) => state.getMessageFromAI);
 
-useEffect(() => {
-  setMessages([
-    {
-      _id: 1,
-      text: 'Hello developer',
-      createdAt: new Date(),
-      user: {
-        _id: 2,
-        name: 'React Native',
-        avatar: 'https://placeimg.com/140/140/any',
-      },
-    },
-  ])
-}, []);
+  const renderSend = (props) => {
 
-const renderSend = (props) => {
-  
-  return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', height: 40, marginRight: 6, gap: 4}}>
-      <Pressable>
-        <Icon name="mic" size={24} color="#0075FD"/>
-      </Pressable>
-      <Send {...props} containerStyle={{ height: 40}}>
-        <View style={{ marginBottom: 8}}>
-          <Icon name="send" size={24} color="#0075FD"/>
-        </View>
-      </Send>
-    </View>
-  );
-};
-
-const renderInputToolBar = (props) => {
-  return (
-    <InputToolbar
-      {...props}
-      containerStyle={{
-        borderRadius: 16,
-        backgroundColor: "#f2f8fc",
-        marginHorizontal: 8,
-        marginTop: 5,
-        borderTopWidth: 0,
-      }}
-    />
-  );
-};
-
-const renderBubble = (props) => {
-  return (
-    <Bubble
-      {...props}
-      wrapperStyle={{
-        left: {
-          backgroundColor: "#f2f8fc",
-        },
-        right: {
-          backgroundColor: "#0075FD",
-        },
-      }}
-    />
-  );
-};
-
-  const onSend = useCallback((messages = []) => {
-    setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, messages)
+    return (
+      <View style={{ flexDirection: 'row', alignItems: 'center', height: 40, marginRight: 6, gap: 4 }}>
+        <Pressable>
+          <Icon name="mic" size={24} color="#0075FD" />
+        </Pressable>
+        <Send {...props} containerStyle={{ height: 40 }}>
+          <View style={{ marginBottom: 8 }}>
+            <Icon name="send" size={24} color="#0075FD" />
+          </View>
+        </Send>
+      </View>
     );
+  };
+
+  const renderInputToolBar = (props) => {
+    return (
+      <InputToolbar
+        {...props}
+        containerStyle={{
+          borderRadius: 16,
+          backgroundColor: "#f2f8fc",
+          marginHorizontal: 8,
+          marginTop: 5,
+          borderTopWidth: 0,
+        }}
+      />
+    );
+  };
+
+  const renderBubble = (props) => {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          left: {
+            backgroundColor: "#f2f8fc",
+          },
+          right: {
+            backgroundColor: "#0075FD",
+          },
+        }}
+      />
+    );
+  };
+
+  const onSend = useCallback(async (messages = []) => {
+
+    addChatMessage(messages[0]);
+    await getMessageFromAI(messages[0]);
+
   }, []);
 
   return (
@@ -84,7 +73,7 @@ const renderBubble = (props) => {
       </View>
 
       <GiftedChat
-        messages={messages}
+        messages={chatMessages}
         onSend={(messages) => onSend(messages)}
         user={{
           _id: user._id,
