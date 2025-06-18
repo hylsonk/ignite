@@ -1,8 +1,10 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import * as API from "./useContainerAPIStore";
+import uuid from 'react-native-uuid';
+
 interface ChatMessage {
-  _id: number
+  _id: number | string
   text: string
   createdAt: Date
   user: {
@@ -58,7 +60,7 @@ const useChatStore = create(
           set((state) => ({
             chatMessages: [
               {
-                _id: 1,
+                _id: uuid.v4(),
                 text: response.answer,
                 createdAt: new Date(),
                 user: {
