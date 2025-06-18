@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://nps-func-dev.azurewebsites.net",
+  baseURL: "ENDPOINT AQUI",
 });
 
 export const get = async <T>(url: string): Promise<T> => {

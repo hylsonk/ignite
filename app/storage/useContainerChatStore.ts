@@ -2,18 +2,18 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import * as API from "./useContainerAPIStore";
 interface ChatMessage {
-      _id: number
-      text: string
-      createdAt: Date
-      user: {
-        _id: number
-        name: string
-        avatar: string
-      }
+  _id: number
+  text: string
+  createdAt: Date
+  user: {
+    _id: number
+    name: string
+    avatar: string
+  }
 }
 
 interface AIResponse {
-  messages: string;
+  answer: string;
 }
 
 interface ContainerChatState {
@@ -26,16 +26,16 @@ interface ContainerChatState {
 }
 
 const initialMessages: ChatMessage[] = [
-    {
-      _id: 1,
-      text: 'Hello developer',
-      createdAt: new Date(),
-      user: {
-        _id: 2,
-        name: 'React Native',
-        avatar: 'https://placeimg.com/140/140/any',
-      },
+  {
+    _id: 1,
+    text: 'Hello developer',
+    createdAt: new Date(),
+    user: {
+      _id: 2,
+      name: 'React Native',
+      avatar: 'https://placeimg.com/140/140/any',
     },
+  },
 ];
 
 const useChatStore = create(
@@ -43,24 +43,23 @@ const useChatStore = create(
     (set, get) => ({
       chatMessages: initialMessages,
       addChatMessage: (message) =>
-        set((state) => ({ chatMessages: [...state.chatMessages, message] })),
+        set((state) => ({ chatMessages: [message, ...state.chatMessages] })),
       isTyping: false,
       setIsTyping: (isTyping) => set(() => ({ isTyping })),
       getMessageFromAI: async (content: string) => {
 
         try {
-          const response = await API.post<AIResponse>("/ask", {
-            messages: content,
+          const response = await API.post<AIResponse>("/rag", {
+            query: content,
           });
 
           console.log(response);
 
           set((state) => ({
             chatMessages: [
-              ...state.chatMessages,
               {
                 _id: 1,
-                text: response.messages,
+                text: response.answer,
                 createdAt: new Date(),
                 user: {
                   _id: 2,
@@ -68,6 +67,7 @@ const useChatStore = create(
                   avatar: 'https://placeimg.com/140/140/any',
                 },
               },
+              ...state.chatMessages,
             ]
           }));
         } catch (error) {
@@ -79,16 +79,10 @@ const useChatStore = create(
       },
     }),
     {
-      name: "chat_nps_store",
+      name: "chat_store",
       storage: createJSONStorage(() => localStorage),
     }
   )
 );
-
-if (typeof window !== "undefined") {
-  window.addEventListener("beforeunload", () => {
-    localStorage.removeItem("chat_nps_store");
-  });
-}
 
 export default useChatStore;
