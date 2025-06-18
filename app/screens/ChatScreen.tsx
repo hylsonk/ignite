@@ -29,9 +29,6 @@ export const ChatScreen: FC<ChatScreenProps> = observer(function ChatScreen(_pro
 
   return (
     <Screen preset="fixed" contentContainerStyle={$styles.flex1}>
-      <Text>Chat</Text>
-      {/* <TTSHooked language={"pt-BR"} thingToSay={"Dados da Receita Federal mostram o total de contribuintes que faz jus à famosa frase 'brasileiro deixa tudo para a última hora'. As pessoas têm até sexta-feira, dia 30 de maio, para entregar a declaração do Imposto de Renda. Mas muitos brasileiros deixaram para a última hora… "}></TTSHooked>
-      <PressRecognitionHooked></PressRecognitionHooked> */}
       <Chat user={{ _id: 1 }}/>
     </Screen>
   )

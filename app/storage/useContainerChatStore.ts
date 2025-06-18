@@ -50,7 +50,7 @@ const useChatStore = create(
 
         try {
           const response = await API.post<AIResponse>("/rag", {
-            query: content,
+            query: content.text,
           });
 
           console.log(response);
