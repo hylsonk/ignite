@@ -1,8 +1,9 @@
 import React, { useCallback } from "react";
 import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { GiftedChat, Bubble, InputToolbar, Send } from "react-native-gifted-chat";
+import { GiftedChat, Bubble, InputToolbar, Send, MessageText } from "react-native-gifted-chat";
 import useChatStore from "@/storage/useContainerChatStore";
+import Markdown from "react-native-markdown-display";
 
 const { height } = Dimensions.get("window");
 
@@ -66,6 +67,19 @@ const Chat = ({ user }) => {
 
   }, []);
 
+  const renderMarkdownMessageText = (props) => {
+      const { currentMessage } = props;
+
+      if (currentMessage && currentMessage.text) {
+        return (
+          <Markdown style={{ paragraph: { borderBottomWidth: 0 }, body: {fontSize: 16, padding: 5} }}>
+            {currentMessage.text}
+          </Markdown>
+        );
+      }
+      return <MessageText {...props} />; 
+    };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -78,6 +92,7 @@ const Chat = ({ user }) => {
         user={{
           _id: user._id,
         }}
+        renderMessageText={renderMarkdownMessageText}
         renderAvatar={null}
         renderUsernameOnMessage={false}
         renderBubble={renderBubble}

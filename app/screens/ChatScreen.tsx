@@ -19,14 +19,6 @@ export const ChatScreen: FC<ChatScreenProps> = observer(function ChatScreen(_pro
     authenticationStore: { logout },
   } = useStores()
 
-  useHeader(
-    {
-      rightTx: "common:logOut",
-      onRightPress: logout,
-    },
-    [logout],
-  )
-
   return (
     <Screen preset="fixed" contentContainerStyle={$styles.flex1}>
       <Chat user={{ _id: 1 }}/>
