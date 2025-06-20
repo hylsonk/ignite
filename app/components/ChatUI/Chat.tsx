@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { View, Image, StyleSheet, Dimensions, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { GiftedChat, Bubble, InputToolbar, Send, MessageText } from "react-native-gifted-chat";
+import { GiftedChat, Bubble, InputToolbar, Send, MessageText, Time } from "react-native-gifted-chat";
 import useChatStore from "@/storage/useContainerChatStore";
 import Markdown from "react-native-markdown-display";
 
@@ -51,20 +51,41 @@ const Chat = ({ user }) => {
     return (
       <Bubble
         {...props}
+        renderTime={(props) => (
+          <Time
+            {...props}
+            timeTextStyle={{
+              left: { color: 'red', fontSize: 10, position: "absolute", left:0 },
+              right: { color: 'blue', fontSize: 10 },
+            }}
+          />
+        )}
+        containerStyle={{
+          left: {
+            marginBottom: 12, // Espaçamento entre bubbles do lado esquerdo
+          },
+          right: {
+            marginBottom: 12, // Espaçamento entre bubbles do lado direito
+          },
+        }}
         wrapperStyle={{
           left: {
             backgroundColor: "#ffffff",
-            padding: 8,
+            paddingVertical: 2,
+            paddingHorizontal: 16,
             borderRadius: 12,
             maxWidth: "85%",
             flexShrink: 1,
+            elevation: 1,
           },
           right: {
             backgroundColor: "#063b88",
-            padding: 8,
+            paddingVertical: 2,
+            paddingHorizontal: 16,
             borderRadius: 12,
             maxWidth: "85%",
             flexShrink: 1,
+            elevation: 1,
           },
         }}
       />
@@ -125,7 +146,7 @@ const Chat = ({ user }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={TIMLogo} style={{ flex: 1, height: 20, width: 20, resizeMode: 'contain'  }} />
+        <Image source={TIMLogo} style={{ flex: 1, height: 20, width: 20, resizeMode: 'contain' }} />
       </View>
 
       <GiftedChat
