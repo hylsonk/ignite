@@ -51,15 +51,6 @@ const Chat = ({ user }) => {
     return (
       <Bubble
         {...props}
-        renderTime={(props) => (
-          <Time
-            {...props}
-            timeTextStyle={{
-              left: { color: 'red', fontSize: 10, position: "absolute", left:0 },
-              right: { color: 'blue', fontSize: 10 },
-            }}
-          />
-        )}
         containerStyle={{
           left: {
             marginBottom: 12, // Espaçamento entre bubbles do lado esquerdo
