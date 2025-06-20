@@ -35,13 +35,12 @@ const Chat = ({ user }) => {
         {...props}
         containerStyle={{
           borderRadius: 16,
-          backgroundColor: "#f2f8fc",
+          backgroundColor: "#ffffff",
           borderColor: "rgb(224, 225, 229)",
           borderStyle: "solid",
           borderWidth: 1,
           marginHorizontal: 8,
           marginTop: 5,
-          borderTopWidth: 0
         }}
       />
     );
@@ -53,10 +52,18 @@ const Chat = ({ user }) => {
         {...props}
         wrapperStyle={{
           left: {
-            backgroundColor: "#FFFFFF",
+            backgroundColor: "#ffffff",
+            padding: 8,
+            borderRadius: 12,
+            maxWidth: "85%",
+            flexShrink: 1,
           },
           right: {
             backgroundColor: "#063b88",
+            padding: 8,
+            borderRadius: 12,
+            maxWidth: "85%",
+            flexShrink: 1,
           },
         }}
       />
@@ -71,17 +78,48 @@ const Chat = ({ user }) => {
   }, []);
 
   const renderMarkdownMessageText = (props) => {
-      const { currentMessage } = props;
+    const { currentMessage } = props;
 
-      if (currentMessage && currentMessage.text) {
-        return (
-          <Markdown style={{ paragraph: { borderBottomWidth: 0 }, body: {fontSize: 16, padding: 5} }}>
+    if (currentMessage && currentMessage.text) {
+      return (
+        <View style={{
+          flexShrink: 1,
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+        }}>
+          <Markdown
+            style={{
+              body: {
+                color: props.position === 'left' ? '#000' : '#fff',
+                fontSize: 14,
+              },
+              strong: {
+                fontWeight: 'bold',
+              },
+              bullet_list: {
+                paddingLeft: 16,
+                marginBottom: 8,
+              },
+              ordered_list: {
+                paddingLeft: 16,
+                marginBottom: 8,
+              },
+              list_item: {
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+              },
+              paragraph: {
+                marginBottom: 8,
+              },
+            }}
+          >
             {currentMessage.text}
           </Markdown>
-        );
-      }
-      return <MessageText {...props} />; 
-    };
+        </View>
+      );
+    }
+    return <MessageText {...props} />;
+  };
 
   return (
     <View style={styles.container}>
