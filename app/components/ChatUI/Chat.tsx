@@ -18,11 +18,11 @@ const Chat = ({ user }) => {
     return (
       <View style={{ flexDirection: 'row', alignItems: 'center', height: 40, marginRight: 6, gap: 4 }}>
         <Pressable>
-          <Icon name="mic" size={24} color="#0075FD" />
+          <Icon name="mic" size={24} color="#063b88" />
         </Pressable>
         <Send {...props} containerStyle={{ height: 40 }}>
           <View style={{ marginBottom: 8 }}>
-            <Icon name="send" size={24} color="#0075FD" />
+            <Icon name="send" size={24} color="#063b88" />
           </View>
         </Send>
       </View>
@@ -36,9 +36,12 @@ const Chat = ({ user }) => {
         containerStyle={{
           borderRadius: 16,
           backgroundColor: "#f2f8fc",
+          borderColor: "rgb(224, 225, 229)",
+          borderStyle: "solid",
+          borderWidth: 1,
           marginHorizontal: 8,
           marginTop: 5,
-          borderTopWidth: 0,
+          borderTopWidth: 0
         }}
       />
     );
@@ -50,10 +53,10 @@ const Chat = ({ user }) => {
         {...props}
         wrapperStyle={{
           left: {
-            backgroundColor: "#f2f8fc",
+            backgroundColor: "#FFFFFF",
           },
           right: {
-            backgroundColor: "#0075FD",
+            backgroundColor: "#063b88",
           },
         }}
       />
@@ -106,7 +109,7 @@ const Chat = ({ user }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "rgb(243, 248, 255)",
   },
   header: {
     paddingTop: height * 0.07,
