@@ -1,11 +1,12 @@
 import React, { useCallback } from "react";
-import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
+import { View, Image, StyleSheet, Dimensions, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { GiftedChat, Bubble, InputToolbar, Send, MessageText } from "react-native-gifted-chat";
 import useChatStore from "@/storage/useContainerChatStore";
 import Markdown from "react-native-markdown-display";
 
 const { height } = Dimensions.get("window");
+const TIMLogo = require("../../../assets/images/timlogo.png")
 
 const Chat = ({ user }) => {
 
@@ -124,7 +125,7 @@ const Chat = ({ user }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.heading}>Chat with AI</Text>
+        <Image source={TIMLogo} style={{ flex: 1, height: 20, width: 20, resizeMode: 'contain'  }} />
       </View>
 
       <GiftedChat
@@ -150,7 +151,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(243, 248, 255)",
   },
   header: {
-    paddingTop: height * 0.07,
+    paddingTop: 18,
+    paddingBottom: 18,
     flexDirection: "row",
     paddingHorizontal: 8,
     borderBottomWidth: 1,
